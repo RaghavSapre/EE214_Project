@@ -1,0 +1,38 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity BIG_SIGMA_0 is 
+port (x: in std_logic_vector(31 downto 0), y: out std_logic_vector(31 downto 0));
+end entity BIG_SIGMA_0;
+
+architecture bhv of BIG_SIGMA_0 is	
+signal S1,S2,S3: std_logic_vector(31 downto 0);
+begin
+for i in 0 to 31 generate
+if (i<20) then
+S1(i) <= x(12+i);
+else
+S1(i) <= x(i-20);
+end if;
+end generate;
+
+for i in 0 to 31 generate
+if (i<19) then
+S2(i) <= x(12+i);
+else
+S2(i) <= x(i-19);
+end if;
+end generate;
+
+for i in 0 to 31 generate
+if (i<10) then
+S3(i) <= x(12+i);
+else
+S3(i) <= x(i-10);
+end if;
+end generate;
+
+y <= S1 xor S2 xor S3;
+
+end architecture;
